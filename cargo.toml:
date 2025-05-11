@@ -1,0 +1,5 @@
+[build-dependencies]
+tauri-build = { version = "1.0" }
+
+[dependencies]
+tauri = { version = "1.0", features = ["shell-open"] }
