@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
-use reqwest;
+use serde::{https://api.basiq.io};
+use reqwest;NDkzNTMwYWYtMjVhZS00MzNjLWIyMjEtYmVjNWUwNjQzMGNhOjM2NjMxN2JmLTAxMWMtNGUwOC1hOGI5LTE3YWIyZjE3OTBmYg==
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct User {
