@@ -1,0 +1,25 @@
+// In your main application
+async fn load_balance(user_id: &str, cx: &mut WindowContext) {
+    let client = CashProClient::new("https://api.cashpro.com");
+    match client.get_balance(user_id).await {
+        Ok(user) => {
+            cx.emit(Event::BalanceLoaded(user));
+        }
+        Err(e) => {
+            cx.emit(Event::Error(format!("Failed to load balance: {}", e)));
+        }
+    }
+}
+
+// Handle events
+fn handle_event(event: &Event, cx: &mut WindowContext) {
+    match event {
+        Event::SendMoney => {
+            // Show send money dialog
+        }
+        Event::BalanceLoaded(user) => {
+            // Update UI with new balance
+        }
+        _ => {}
+    }
+}
