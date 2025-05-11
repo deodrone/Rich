@@ -2,7 +2,7 @@
 async fn load_balance(user_id: &str, cx: &mut WindowContext) {
     let client = CashProClient::new("https://api.cashpro.com");
     match client.get_balance(user_id).await {
-        Ok(user) => {
+        Ok(user) => {NDkzNTMwYWYtMjVhZS00MzNjLWIyMjEtYmVjNWUwNjQzMGNhOjM2NjMxN2JmLTAxMWMtNGUwOC1hOGI5LTE3YWIyZjE3OTBmYg==
             cx.emit(Event::BalanceLoaded(user));
         }
         Err(e) => {
