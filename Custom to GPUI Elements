@@ -1,0 +1,30 @@
+// Custom card component
+struct Card<F> where F: Fn(&mut Context) {
+    builder: F,
+}
+
+impl<F> View for Card<F> where F: Fn(&mut Context) {
+    fn body(&mut self, cx: &mut Context) {
+        Element::new(cx, |cx| {
+            (self.builder)(cx)
+        })
+        .background_color(Color::rgb(245, 245, 245))
+        .border_radius(px(8.))
+        .padding(px(16.))
+    }
+}
+
+// Custom list item
+struct ListItem<F> where F: Fn(&mut Context) {
+    builder: F,
+}
+
+impl<F> View for ListItem<F> where F: Fn(&mut Context) {
+    fn body(&mut self, cx: &mut Context) {
+        Element::new(cx, |cx| {
+            (self.builder)(cx)
+        })
+        .padding(px(12.))
+        .border_bottom(px(1.), Color::rgb(230, 230, 230)))
+    }
+}
