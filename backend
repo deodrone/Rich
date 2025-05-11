@@ -1,0 +1,62 @@
+use serde::{Deserialize, Serialize};
+use reqwest;
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct User {
+    pub username: String,
+    pub balance: f64,
+    pub bitcoin: f64,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Transaction {
+    pub id: String,
+    pub sender: String,
+    pub recipient: String,
+    pub amount: f64,
+    pub timestamp: String,
+}
+
+pub struct CashProClient {
+    api_base: String,
+    client: reqwest::Client,
+}
+
+impl CashProClient {
+    pub fn new(api_url: &str) -> Self {
+        Self {
+            api_base: api_url.to_string(),
+            client: reqwest::Client::new(),
+        }
+    }
+    
+    pub async fn get_balance(&self, user_id: &str) -> Result<User, reqwest::Error> {
+        let url = format!("{}/users/{}", self.api_base, user_id);
+        self.client.get(&url)
+            .send()
+            .await?
+            .json()
+            .await
+    }
+    
+    pub async fn send_money(
+        &self,
+        sender: &str,
+        recipient: &str,
+        amount: f64
+    ) -> Result<Transaction, reqwest::Error> {
+        let url = format!("{}/transactions", self.api_base);
+        let payload = serde_json::json!({
+            "sender": sender,
+            "recipient": recipient,
+            "amount": amount
+        });
+        
+        self.client.post(&url)
+            .json(&payload)
+            .send()
+            .await?
+            .json()
+            .await
+    }
+}
